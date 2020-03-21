@@ -1,38 +1,129 @@
-.App {
+/* NAVIGATION BAR MENU */
+.Navigation {
+  background-color: dodgerblue;
+  bottom: 0;
+  width: 100%;
+}
+.Navigation ul {
+  display: flex;
+  padding: 0;
+  list-style: none;
+  justify-content: center;
+}
+.Navigation ul li {
+  margin: 10px;
+}
+.Navigation ul li a {
+  text-decoration: none;
+  color: mediumspringgreen;
+}
+
+/* HEADER */
+
+.header {
+  width: 100vw;
+  padding-left: 20px;
+  display: flex;
+  color: mediumspringgreen;
+  background-color: dodgerblue;
+}
+
+/* HOME SCREEN CLICK THROUGH */
+.homeScreen {
+  display: flex;
+  align-items: center;
+  height: 85vh;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
+}
+.startScreen {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
+.C2A {
+  width: 95vw;
+  background-color: mediumspringgreen;
+  color: dodgerblue;
+}
+
+.createEntry {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+}
+
+.buttonTray {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.statusDashboard {
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  justify-content: center;
+}
+.statusDashboard p {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* SETTINGS */
+
+.Settings {
+  height: 85vh;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.fullScreen {
+  margin: auto;
+  height: 50px;
+  width: 95vw;
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.toggle {
+  display: flex;
+  flex-direction: row;
+}
+
+.greyCloud {
+  background-color: lightgrey;
+}
+
+.square {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+}
+
+/* CALENDAR */
+
+.calliGirl {
+  display: flex;
+  height: 85vh;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+/* LOG */
+
+.logDash {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  margin: auto;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.logBook {
+  margin: 20px;
 }
