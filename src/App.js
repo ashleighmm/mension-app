@@ -12,11 +12,22 @@ import Alerts from "./components/alerts";
 class App extends Component {
   state = {
     startDate: undefined,
-    cycleLength: 28
+    cycleLength: 28,
+    periodLength: 7
   };
 
   startBleed = date => {
     this.setState({ startDate: date });
+  };
+
+  adjustCycle = length => {
+    console.log(this.state.cycleLength);
+    this.setState({ cycleLength: length });
+  };
+
+  adjustPeriod = length => {
+    console.log(this.state.periodLength);
+    this.setState({ periodLength: length });
   };
 
   render() {
@@ -51,8 +62,12 @@ class App extends Component {
             path="/settings"
             component={() => (
               <Settings
+                adjustPeriod={this.adjustPeriod}
+                adjustCycle={this.adjustCycle}
+                startBleed={this.startBleed}
                 startDate={this.state.startDate}
                 cycleLength={this.state.cycleLength}
+                periodLength={this.state.periodLength}
               />
             )}
           />

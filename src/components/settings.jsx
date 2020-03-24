@@ -18,17 +18,41 @@ class Settings extends Component {
         <div className="fullScreen">
           <p>Period length</p>
           <div className="toggle">
-            <button className="greyCloud square">-</button>
+            <button
+              onClick={() =>
+                this.props.adjustPeriod(this.props.periodLength - 1)
+              }
+              className="greyCloud square"
+            >
+              -
+            </button>
             <p className="square">{this.props.periodLength}</p>
-            <button className="greyCloud square">+</button>
+            <button
+              onClick={() =>
+                this.props.adjustPeriod(this.props.periodLength + 1)
+              }
+              className="greyCloud square"
+            >
+              +
+            </button>
           </div>
         </div>
         <div className="fullScreen">
           <p>Cycle length</p>
           <div className="toggle">
-            <button className="greyCloud square">-</button>
+            <button
+              onClick={() => this.props.adjustCycle(this.props.cycleLength - 1)}
+              className="greyCloud square"
+            >
+              -
+            </button>
             <p className="square">{this.props.cycleLength}</p>
-            <button className="greyCloud square">+</button>
+            <button
+              onClick={() => this.props.adjustCycle(this.props.cycleLength + 1)}
+              className="greyCloud square"
+            >
+              +
+            </button>
           </div>
         </div>
       </div>
