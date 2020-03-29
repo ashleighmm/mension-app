@@ -32,7 +32,7 @@
 .homeScreen {
   display: flex;
   align-items: center;
-  height: 85vh;
+  height: 83vh;
   justify-content: center;
   flex-direction: column;
   margin: auto;
@@ -82,7 +82,7 @@
 .fullScreen {
   margin: auto;
   height: 50px;
-  width: 95vw;
+  width: 93vw;
   text-align: left;
   display: flex;
   flex-direction: row;
@@ -100,6 +100,9 @@
 
 .square {
   width: 50px;
+  margin-top: 0px;
+  font-size: 28px;
+  font-weight: 800;
   height: 50px;
   text-align: center;
 }

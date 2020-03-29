@@ -1,6 +1,15 @@
 import React, { Component } from "react";
 class Settings extends Component {
-  state = {};
+  state = {
+    cal: true,
+    ext: true
+  };
+
+
+  checkHandler2 = () => {
+    this.setState({ext: !this.state.ext})
+  };
+
   render() {
     return (
       <div className="Settings">
@@ -9,11 +18,21 @@ class Settings extends Component {
         <button className="fullScreen greyCloud">Connect Google account</button>
         <button className="fullScreen greyCloud">
           <p>Mon - Sun calendar</p>
-          <input type="checkbox" checked="checked"></input>
+          <input
+            style={{minHeight: "30px", minWidth: "30px"}}
+            type="checkbox"
+            checked={this.props.cal}
+            onChange={this.props.calType}
+          ></input>
         </button>
         <button className="fullScreen greyCloud">
           <p>Show extended month</p>
-          <input type="checkbox" checked="checked"></input>
+          <input 
+            style={{minHeight: "30px", minWidth: "30px"}} 
+            type="checkbox"
+            checked={this.props.neighboringMonth}
+            onChange={this.props.showMonth}
+            />
         </button>
         <div className="fullScreen">
           <p>Period length</p>
@@ -28,6 +47,7 @@ class Settings extends Component {
             </button>
             <p className="square">{this.props.periodLength}</p>
             <button
+            style={{fontSize: "20"}}
               onClick={() =>
                 this.props.adjustPeriod(this.props.periodLength + 1)
               }

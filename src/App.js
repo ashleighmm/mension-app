@@ -13,20 +13,36 @@ class App extends Component {
   state = {
     startDate: undefined,
     cycleLength: 28,
-    periodLength: 7
+    periodLength: 7,
+    calendarType: "ISO 8601",
+    cal: true,
+    neighboringMonth: true
+  };
+  
+  showMonth = () => {
+    let status = (this.state.neighboringMonth ? false : true);
+    this.setState({neighboringMonth: status});
+    return this.state.neighboringMonth;
+  }
+  calType = () => {
+    let status = (this.state.calendarType === "ISO 8601" ? "US" : "ISO 8601");
+    this.setState({calendarType: status, cal: !this.state.cal});
+    console.log(this.state.cal)
+    console.log(this.state.calendarType)
+    return status;
+    
   };
 
   startBleed = date => {
+    console.log(date)
     this.setState({ startDate: date });
   };
 
   adjustCycle = length => {
-    console.log(this.state.cycleLength);
     this.setState({ cycleLength: length });
   };
 
   adjustPeriod = length => {
-    console.log(this.state.periodLength);
     this.setState({ periodLength: length });
   };
 
@@ -48,7 +64,17 @@ class App extends Component {
               />
             )}
           />
-          <Route path="/calendar" component={Cal} />
+          <Route
+            path="/calendar"
+            component={() => (
+              <Cal
+                neighboringMonth = {this.state.neighboringMonth}
+                calendarType={this.state.calendarType}
+                startDate={this.state.startDate}
+                periodLength={this.state.periodLength}
+              />
+            )}
+          />
           <Route
             path="/log"
             component={() => (
@@ -62,10 +88,12 @@ class App extends Component {
             path="/settings"
             component={() => (
               <Settings
+                cal={this.state.cal}
+                calType={this.calType}
+                neighboringMonth={this.state.neighboringMonth}
+                showMonth={this.showMonth}
                 adjustPeriod={this.adjustPeriod}
                 adjustCycle={this.adjustCycle}
-                startBleed={this.startBleed}
-                startDate={this.state.startDate}
                 cycleLength={this.state.cycleLength}
                 periodLength={this.state.periodLength}
               />
