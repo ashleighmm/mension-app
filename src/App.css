@@ -111,6 +111,7 @@
 
 .calliGirl {
   display: flex;
+  flex-direction: column;
   height: 85vh;
   margin: auto;
   justify-content: center;

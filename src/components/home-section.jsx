@@ -13,7 +13,8 @@ class Home extends Component {
     this.setState({ first: false, second: true });
   };
   clickListener2 = () => {
-    this.props.startBleed(null);
+    this.props.startBleed(undefined);
+    this.setState({first: true, second: false, third: false})
   };
   clickListener3 = () => {
     console.log(this.props.startDate);

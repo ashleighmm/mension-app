@@ -7,7 +7,7 @@ import Home from "./components/home-section";
 import Cal from "./components/calendar";
 import Log from "./components/log";
 import Settings from "./components/settings";
-import Alerts from "./components/alerts";
+
 
 class App extends Component {
   state = {
@@ -101,7 +101,7 @@ class App extends Component {
           />
         </Switch>
         <footer>
-          <Menu />
+          <Menu startDate={this.state.startDate}/>
         </footer>
       </React.Fragment>
     );
