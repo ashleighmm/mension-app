@@ -35,7 +35,7 @@ app.get('/api/log', (req, res) => {
 	});
 });
 
-
+// create a new symptom log entry
 app.post('/api/log/create', (req, res) => {
 	connection.query(`INSERT INTO tracker (date, note) VALUES ("${req.body.date}", "${req.body.note}")`, function(err, results) {
 		console.log(req.body)
@@ -46,6 +46,38 @@ app.post('/api/log/create', (req, res) => {
 		}
 	});
 });
+
+// get the list of cycles
+app.get('/api/cycles', (req, res) => {
+	connection.query('SELECT * FROM cycles', (err, results) => {
+		if (err) {
+			res.status(500).send('You have not logged any symptoms');
+			console.log(results)
+		} else{
+			res.status(200).send(results);
+			console.log(results)
+		}
+	});
+});
+
+
+// create a new cycle 
+
+app.post('/api/cycles/create', (req, res) => {
+	if (req.body.start && req.body.end !== null || undefined) {
+	connection.query(`INSERT INTO cycles (start, end) VALUES ("${req.body.start}", "${req.body.end}")`, function(err, results) {
+		console.log(req.body)
+		if (err) {
+			console.log(err)
+			res.status(500).send(err);
+		} else if (req.body.start || req.body.end === null || undefined) {
+			console.log("forbidden")
+			res.status(403).send(err);
+		} else {
+			res.status(200).send("Cycle created");
+		}
+	});
+}});
 
 
 // - start the server
