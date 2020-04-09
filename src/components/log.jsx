@@ -67,8 +67,10 @@ class Log extends Component {
             onChange={this.dateChange} type="date" />
           <button onClick={this.postData} style={{marginTop: "10px"}}>Submit</button>
         </form>)
-        : this.state.logbook.map(log => (
-        <p>{log.date.substr(0, 10)}: {log.note}</p>))}
+        : 
+        
+        this.state.logbook.map(log => (
+       <div style={{display: "flex", justifyContent: "center"}}> <p style={{ padding: "5px", color: "white", backgroundColor: "dodgerblue", width: "80vw", height: "auto"}}><strong style={{color: "mediumspringgreen"}}>{log.date.substr(0, 10)}:</strong> {log.note}</p></div>))}
       </div>
     );
   }
