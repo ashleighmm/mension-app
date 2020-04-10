@@ -43,10 +43,10 @@ class Cal extends Component {
           <Calendar calendarType={this.props.calendarType} showNeighboringMonth={this.props.neighboringMonth} value={[this.state.start, this.state.end]}/>
        </div>) : <Calendar calendarType={this.props.calendarType} showNeighboringMonth={this.props.neighboringMonth} /> }
        <div className="cycleLog">
-          <h3 style={{textAlign: "left"}}>Past Cycles</h3>
+          <h3 style={{textAlign: "left"}}><strong>Past Cycles</strong></h3>
           { this.state.cycles.length > 0 ? 
           this.state.cycles.map(cycle => (
-          <p>{cycle.start.substr(0, 10)} - {cycle.end.substr(0, 10)}</p>)) : null }
+          <div style={{margin: "10px", borderRadius: "5px", backgroundColor: "dodgerblue", border: "3px solid mediumspringgreen", color: "white"}}><p style={{margin: "0px", padding: "10px"}}>{cycle.start.substr(0, 10)} - {cycle.end.substr(0, 10)}</p></div>)) : null }
        </div>
       </div>
     );

@@ -21,8 +21,6 @@
 /* HEADER */
 
 .header {
-  width: 100vw;
-  padding-left: 20px;
   display: flex;
   color: mediumspringgreen;
   background-color: dodgerblue;
@@ -45,6 +43,8 @@
 
 .C2A {
   width: 95vw;
+  border-radius: 10px;
+  border: 3px solid dodgerblue;
   background-color: mediumspringgreen;
   color: dodgerblue;
 }

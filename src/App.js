@@ -50,7 +50,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <header className="header">
-          <p>Moon Keeper</p>
+          <p style={{paddingLeft: "20px"}}>Moon Keeper</p>
         </header>
         <Switch>
           <Route

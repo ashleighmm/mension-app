@@ -51,13 +51,13 @@ class Log extends Component {
   render() {
     return (
       <div style={{ height: "85vh" }}>
-        <div className="greyCloud logDash">
-          <h2>{this.props.cycleLength}</h2>
-          <p>days in your average cycle</p>
+        <div className="greyCloud logDash" style={{paddingTop: "10px", paddingBottom: "10px", width: "100%"}}>
+          <h2 style={{margin: "5px"}}>{this.props.cycleLength}</h2>
+          <p style={{margin: "5px"}}>days in your average cycle</p>
         </div>
       
         <div className="logBook">
-          <button onClick={this.clickHandler}>Add an entry</button>
+          <button style={{backgroundColor: "mediumspringgreen", borderRadius: "40px", padding: "10px", color: "dodgerblue", border: "3px solid dodgerblue"}} onClick={this.clickHandler}>Add an entry</button>
         </div>{this.state.adding ? 
         (<form style={{margin: "auto", width: "30vw", display: "flex", flexDirection: "column"}}>
           <label>Log</label>
@@ -70,7 +70,7 @@ class Log extends Component {
         : 
         
         this.state.logbook.map(log => (
-       <div style={{display: "flex", justifyContent: "center"}}> <p style={{ padding: "5px", color: "white", backgroundColor: "dodgerblue", width: "80vw", height: "auto"}}><strong style={{color: "mediumspringgreen"}}>{log.date.substr(0, 10)}:</strong> {log.note}</p></div>))}
+       <div style={{display: "flex", justifyContent: "center"}}> <p style={{ padding: "10px", color: "white", borderRadius: "10px", backgroundColor: "dodgerblue", border: "3px solid mediumspringgreen", width: "80vw", height: "auto"}}><strong style={{color: "mediumspringgreen"}}>{log.date.substr(0, 10)}:<nbsp/><nbsp/><nbsp/></strong> {log.note}</p></div>))}
       </div>
     );
   }
