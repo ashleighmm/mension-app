@@ -1,7 +1,11 @@
 import React, { Component } from "react";
-import Calendar from "react-calendar";
 import Axios from "axios";
-import "react-calendar/dist/Calendar.css";
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+
+const localizer = momentLocalizer(moment);
+    
 
 const api = "http://localhost:3000/api/cycles";
 const api2 = "http://localhost:3000/api/cycles/create";
@@ -10,22 +14,18 @@ class Cal extends Component {
   state = {
     start: new Date(this.props.startDate * 1000),
     end: new Date(((this.props.periodLength * 86400) + this.props.startDate)* 1000),
-    cycles: []
+    events: []
   }
   componentDidMount() {
+    this.postData();
     this.getData();
     console.log(this.state);
-  }
-
-  componentDidUpdate() {
-    this.postData()
-    console.log(this.state)
   }
 
   getData() {
     Axios.get(api).then(result => {
       console.log(result.data);
-      this.setState({ cycles: result.data });
+      this.setState({ events: result.data });
     });
   }
 
@@ -36,18 +36,16 @@ class Cal extends Component {
   }
 
   render() {
+
     return (
       <div className="calliGirl">
-      {this.props.startDate !== undefined ? (
-       <div>
-          <Calendar calendarType={this.props.calendarType} showNeighboringMonth={this.props.neighboringMonth} value={[this.state.start, this.state.end]}/>
-       </div>) : <Calendar calendarType={this.props.calendarType} showNeighboringMonth={this.props.neighboringMonth} /> }
-       <div className="cycleLog">
-          <h3 style={{textAlign: "left"}}><strong>Past Cycles</strong></h3>
-          { this.state.cycles.length > 0 ? 
-          this.state.cycles.map(cycle => (
-          <div style={{margin: "10px", borderRadius: "5px", backgroundColor: "dodgerblue", border: "3px solid mediumspringgreen", color: "white"}}><p style={{margin: "0px", padding: "10px"}}>{cycle.start.substr(0, 10)} - {cycle.end.substr(0, 10)}</p></div>)) : null }
-       </div>
+          <Calendar
+            events={this.state.events}
+            startAccessor="start"
+            endAccessor="end"
+            defaultDate={moment().toDate()}
+            localizer={localizer}
+          />
       </div>
     );
   }

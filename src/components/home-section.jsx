@@ -69,12 +69,12 @@ class Home extends Component {
             </p>
             <p>
               period day:{" "}
-              {(
-                ((new Date().getTime() / 1000).toFixed(0) -
-                  this.props.startDate) /
-                  86400 +
-                1
-              ).toFixed(0)}
+              {(this.props.cycleLength - ((
+                (this.props.cycleLength * 86400 -
+                  ((new Date().getTime() / 1000).toFixed(0) -
+                    this.props.startDate)) /
+                86400
+              ).toFixed(0)) )}
             </p>
           </div>
         ) : null}

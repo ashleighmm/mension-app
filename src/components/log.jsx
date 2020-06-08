@@ -1,5 +1,11 @@
 import React, { Component } from "react";
 import Axios from "axios";
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+
+
+const localizer = momentLocalizer(moment);
 
 const api = "http://localhost:3000/api/log";
 const api2 = "http://localhost:3000/api/log/create"
@@ -51,7 +57,7 @@ class Log extends Component {
   render() {
     return (
       <div style={{ height: "85vh" }}>
-        <div className="greyCloud logDash" style={{paddingTop: "10px", paddingBottom: "10px", width: "100%"}}>
+        <div className="greyCloud logDash" style={{paddingTop: "10px", paddingBottom: "10px"}}>
           <h2 style={{margin: "5px"}}>{this.props.cycleLength}</h2>
           <p style={{margin: "5px"}}>days in your average cycle</p>
         </div>
@@ -68,10 +74,18 @@ class Log extends Component {
           <button onClick={this.postData} style={{marginTop: "10px"}}>Submit</button>
         </form>)
         : 
-        
-        this.state.logbook.map(log => (
-       <div style={{display: "flex", justifyContent: "center"}}> <p style={{ padding: "10px", color: "white", borderRadius: "10px", backgroundColor: "dodgerblue", border: "3px solid mediumspringgreen", width: "80vw", height: "auto"}}><strong style={{color: "mediumspringgreen"}}>{log.date.substr(0, 10)}:<nbsp/><nbsp/><nbsp/></strong> {log.note}</p></div>))}
+        <div style={{height: "60vh"}}>
+        <Calendar
+            events={this.state.logbook}
+            startAccessor="start"
+            endAccessor="end"
+            defaultDate={moment().toDate()}
+            localizer={localizer}
+          />
+        </div>
+  }
       </div>
+      
     );
   }
 }

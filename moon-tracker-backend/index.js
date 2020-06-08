@@ -26,6 +26,7 @@ app.use(
 app.get('/api/log', (req, res) => {
 	connection.query('SELECT * FROM tracker', (err, results) => {
 		if (err) {
+			console.log(err);
 			res.status(500).send('You have not logged any symptoms');
 			console.log(results)
 		} else {
@@ -40,6 +41,7 @@ app.post('/api/log/create', (req, res) => {
 	connection.query(`INSERT INTO tracker (date, note) VALUES ("${req.body.date}", "${req.body.note}")`, function(err, results) {
 		console.log(req.body)
 		if (err) {
+			console.log(err);
 			res.status(500).send(err);
 		} else {
 			res.status(200).send("Log created");
@@ -51,6 +53,7 @@ app.post('/api/log/create', (req, res) => {
 app.get('/api/cycles', (req, res) => {
 	connection.query('SELECT * FROM cycles', (err, results) => {
 		if (err) {
+			console.log(err);
 			res.status(500).send('You have not logged any symptoms');
 			console.log(results)
 		} else{
