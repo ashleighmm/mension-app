@@ -36,34 +36,6 @@ app.get('/api/log', (req, res) => {
 	});
 });
 
-// create a new symptom log entry
-app.post('/api/log/create', (req, res) => {
-	connection.query(`INSERT INTO tracker (date, note) VALUES ("${req.body.date}", "${req.body.note}")`, function(err, results) {
-		console.log(req.body)
-		if (err) {
-			console.log(err);
-			res.status(500).send(err);
-		} else {
-			res.status(200).send("Log created");
-		}
-	});
-});
-
-// get the list of cycles
-app.get('/api/cycles', (req, res) => {
-	connection.query('SELECT * FROM cycles', (err, results) => {
-		if (err) {
-			console.log(err);
-			res.status(500).send('You have not logged any symptoms');
-			console.log(results)
-		} else{
-			res.status(200).send(results);
-			console.log(results)
-		}
-	});
-});
-
-
 // create a new cycle 
 
 app.post('/api/cycles/create', (req, res) => {
@@ -81,6 +53,41 @@ app.post('/api/cycles/create', (req, res) => {
 		}
 	});
 }});
+// create a new symptom log entry
+app.post('/api/log/create', (req, res) => {
+	console.log("hello from the backend");
+	if (req.body.start && req.body.title !== null || undefined) {
+	console.log("backend validation passed");
+	connection.query(`INSERT INTO tracker (start, title) VALUES ("${req.body.start}", "${req.bodytitle}")`, function(err, results) {
+		if (err) {
+			console.log(err);
+			res.status(500).send(err);
+		} else if (req.body.start || req.body.title === null || undefined) {
+			console.log("forbidden", req.body)
+			console.log(err);
+			res.status(403).send(err);
+		} else {
+			res.status(200).send("log created");
+		}
+	});
+}});
+
+// get the list of cycles
+app.get('/api/cycles', (req, res) => {
+	connection.query('SELECT * FROM cycles', (err, results) => {
+		if (err) {
+			console.log(err);
+			res.status(500).send('You have not logged any symptoms');
+			console.log(results)
+		} else{
+			res.status(200).send(results);
+			console.log(results)
+		}
+	});
+});
+
+
+
 
 
 // - start the server

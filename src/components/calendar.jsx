@@ -22,14 +22,14 @@ class Cal extends Component {
     console.log(this.state);
   }
 
-  getData() {
+  getData = () => {
     Axios.get(api).then(result => {
       console.log(result.data);
       this.setState({ events: result.data });
     });
   }
 
-  postData() {
+  postData = () => {
     Axios.post(api2, {start: this.state.start, end: this.state.end}).then(result => {
       console.log(result.data);
     });
