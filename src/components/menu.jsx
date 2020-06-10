@@ -10,10 +10,7 @@ class Menu extends Component {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/calendar">Calendar</Link>
-          </li>
-          <li>
-            <Link to="/log">Log</Link>
+            <Link to="/log">Calendar</Link>
           </li>
           <li>
             <Link to="/settings">Settings</Link>

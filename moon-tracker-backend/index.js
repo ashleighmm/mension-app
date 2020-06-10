@@ -58,7 +58,7 @@ app.post('/api/log/create', (req, res) => {
 	console.log("hello from the backend");
 	if (req.body.start && req.body.title !== null || undefined) {
 	console.log("backend validation passed");
-	connection.query(`INSERT INTO tracker (start, title) VALUES ("${req.body.start}", "${req.bodytitle}")`, function(err, results) {
+	connection.query(`INSERT INTO tracker (start, end, title) VALUES ("${req.body.start}", "${req.body.end}", "${req.body.title}")`, function(err, results) {
 		if (err) {
 			console.log(err);
 			res.status(500).send(err);

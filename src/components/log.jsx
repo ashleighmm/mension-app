@@ -8,23 +8,31 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 const localizer = momentLocalizer(moment);
 const api = "http://localhost:3000/api/log";
 const api2 = "http://localhost:3000/api/log/create";
+const api3 = "http://localhost:3000/api/cycles";
+const api4 = "http://localhost:3000/api/cycles/create";
 
 
 class Log extends Component {
   state = {
     adding: false,
     logbook: [],
-    start: "",
+    date: "",
     flow: "",
     pain: "",
     location: "",
-    note: ""
+    note: "",
+    start: new Date(this.props.startDate * 1000),
+    end: new Date(((this.props.periodLength * 86400) + this.props.startDate)* 1000),
+    events: []
   }
 
   componentDidMount() {
+    this.postcycleData();
+    this.getcycleData();
     this.getData();
   }
 
+  // SYMPTOM LOG FUNCTIONS
   getData = () => {
     Axios.get(api).then(result => {
       console.log(result.data);
@@ -35,7 +43,7 @@ class Log extends Component {
   postData = () => {
     let myString =  "flow: " + `${this.state.flow}` + " pain: " + `${this.state.pain}` + " location: " + `${this.state.location}` + " note: " + `${this.state.note}`;
     console.log(myString);
-    Axios.post(api2, {start: this.state.start, title: myString}).then(result => {
+    Axios.post(api2, {start: this.state.date, end: this.state.date, title: myString}).then(result => {
       console.log(result.data);
     });
     this.getData();
@@ -54,6 +62,20 @@ class Log extends Component {
     this.setState({adding: status});
   }
 
+// CYCLE TRACKING FUNCTIONS
+
+  getcycleData = () => {
+    Axios.get(api3).then(result => {
+      console.log(result.data);
+      this.setState({ events: result.data });
+    });
+  }
+
+  postcycleData = () => {
+    Axios.post(api4, {start: this.state.start, end: this.state.end}).then(result => {
+      console.log(result.data);
+    });
+  }
 
   render() {
     return (
@@ -96,16 +118,16 @@ class Log extends Component {
           <label>Any additional symptom notes?</label>
             <input name="note" value={this.state.note} onChange={this.changeHandler} type="text"style={{height: "20vh"}}></input>
           <label>Date</label>
-             <input name="start" value={this.state.date}
+             <input name="date" value={this.state.date}
              onChange={this.changeHandler} type="date" />
           <button onClick={this.postData} type="submit" style={{marginTop: "10px"}}>Submit</button>
         </form>)
         : 
         <div style={{height: "60vh"}}>
         <Calendar
-            events={this.state.logbook}
+            events={this.state.logbook.concat(this.state.events)}
             startAccessor="start"
-            endAccessor="start"
+            endAccessor="end"
             desc="description"
             allDay="true"
             defaultDate={moment().toDate()}

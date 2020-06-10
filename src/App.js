@@ -4,7 +4,6 @@ import { Switch, Route } from "react-router-dom";
 
 import Menu from "./components/menu";
 import Home from "./components/home-section";
-import Cal from "./components/calendar";
 import Log from "./components/log";
 import Settings from "./components/settings";
 
@@ -65,21 +64,11 @@ class App extends Component {
             )}
           />
           <Route
-            path="/calendar"
-            component={() => (
-              <Cal
-                neighboringMonth = {this.state.neighboringMonth}
-                calendarType={this.state.calendarType}
-                startDate={this.state.startDate}
-                periodLength={this.state.periodLength}
-              />
-            )}
-          />
-          <Route
             path="/log"
             component={() => (
               <Log
                 startDate={this.state.startDate}
+                periodLength={this.state.periodLength}
                 cycleLength={this.state.cycleLength}
               />
             )}

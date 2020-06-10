@@ -7,8 +7,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 const localizer = momentLocalizer(moment);
     
 
-const api = "http://localhost:3000/api/cycles";
-const api2 = "http://localhost:3000/api/cycles/create";
+
 
 class Cal extends Component {
   state = {
@@ -17,19 +16,19 @@ class Cal extends Component {
     events: []
   }
   componentDidMount() {
-    this.postData();
-    this.getData();
+    this.postcycleData();
+    this.getcycleData();
     console.log(this.state);
   }
 
-  getData = () => {
+  getcycleData = () => {
     Axios.get(api).then(result => {
       console.log(result.data);
       this.setState({ events: result.data });
     });
   }
 
-  postData = () => {
+  postcycleData = () => {
     Axios.post(api2, {start: this.state.start, end: this.state.end}).then(result => {
       console.log(result.data);
     });
@@ -40,9 +39,10 @@ class Cal extends Component {
     return (
       <div className="calliGirl">
           <Calendar
-            events={this.state.events}
+            events={this.state.logbook}
             startAccessor="start"
-            endAccessor="end"
+            endAccessor="start"
+            allDay="true"
             defaultDate={moment().toDate()}
             localizer={localizer}
           />
