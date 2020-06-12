@@ -25,7 +25,7 @@ class Log extends Component {
     end: new Date(((this.props.periodLength * 86400) + this.props.startDate)* 1000),
     events: []
   }
-
+  
   componentDidMount() {
     this.postcycleData();
     this.getcycleData();
@@ -38,7 +38,7 @@ class Log extends Component {
       console.log(result.data);
       this.setState({ logbook: result.data, adding: false });
     });
-  }
+  };
 
   postData = () => {
     let myString =  "flow: " + `${this.state.flow}` + " pain: " + `${this.state.pain}` + " location: " + `${this.state.location}` + " note: " + `${this.state.note}`;
@@ -48,14 +48,12 @@ class Log extends Component {
     });
     this.getData();
     console.log(this.state.logbook)
-  }
+  };
 
   changeHandler = (e) => {
     console.log(e.target.name);
     this.setState({ [e.target.name]: e.target.value });
   };
-
-
 
   clickHandler = () => {
     let status = this.state.adding ? false : true
@@ -72,22 +70,20 @@ class Log extends Component {
   }
 
   postcycleData = () => {
-    Axios.post(api4, {start: this.state.start, end: this.state.end}).then(result => {
+    let start = this.state.start.toLocaleDateString("fr-ca").split('/').join('-');
+    let end = this.state.end.toLocaleDateString("fr-ca").split('/').join('-');
+    console.log(start, end)
+    Axios.post(api4, {start: start, end: end}).then(result => {
       console.log(result.data);
     });
   }
 
   render() {
+    console.log(this.props.views)
     return (
       <div style={{ height: "85vh" }}>
-        <div className="greyCloud logDash" style={{paddingTop: "10px", paddingBottom: "10px"}}>
-          <h2 style={{margin: "5px"}}>{this.props.cycleLength}</h2>
-          <p style={{margin: "5px"}}>days in your average cycle</p>
-        </div>
       
-        <div className="logBook">
-          <button style={{backgroundColor: "mediumspringgreen", borderRadius: "40px", padding: "10px", color: "dodgerblue", border: "3px solid dodgerblue"}} onClick={this.clickHandler}>Add an entry</button>
-        </div>{this.state.adding === true ? 
+       {this.state.adding === true ? 
         (<form id="myForm" style={{margin: "auto", width: "30vw", display: "flex", flexDirection: "column"}}>
           <label htmlFor="flow">How heavy is your flow</label>
             <select name="flow" onChange={this.changeHandler} id="flow">
@@ -108,7 +104,7 @@ class Log extends Component {
               <option value="5">5</option>
             </select>
             <label htmlFor="location">Where is your pain?</label>
-            <select name="location" onChange={this.changeHandler} id="location" multiple>
+            <select name="location" onChange={this.changeHandler} id="location">
               <option vale="N/A">N/A</option>
               <option value="Pelvis">Pelvis</option>
               <option value="Legs">Legs</option>
@@ -123,18 +119,30 @@ class Log extends Component {
           <button onClick={this.postData} type="submit" style={{marginTop: "10px"}}>Submit</button>
         </form>)
         : 
-        <div style={{height: "60vh"}}>
+        <div style={{height: "80vh"}}>
         <Calendar
             events={this.state.logbook.concat(this.state.events)}
+            defaultView={this.props.defaultView}
+            views={['month', 'day', 'week']}
+            view={this.props.defaultView}
+            onView={this.props.onViewChange}
+            onNavigate={this.props.onNavigate}
             startAccessor="start"
             endAccessor="end"
             desc="description"
-            allDay="true"
-            defaultDate={moment().toDate()}
+            allDayAccessor="allDay"
+            toolbar={true}
+            selectable={true}
+            showMultiDayTimes={true}
+            step={30}
+            date={this.props.currentDate}
+            defaultDate={new Date()}
             localizer={localizer}
           />
         </div>
-  }
+  } <div className="logBook" style={{width: "100vw", marginLeft: "42vw", marginRight: "42vw"}}>
+  <button style={{backgroundColor: "mediumspringgreen", borderRadius: "40px", padding: "10px", color: "dodgerblue", border: "3px solid dodgerblue"}} onClick={this.clickHandler}>Add an entry</button>
+  </div>
       </div>
       
     );

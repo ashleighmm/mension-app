@@ -86,10 +86,28 @@ app.get('/api/cycles', (req, res) => {
 	});
 });
 
+// Delete the logs
+app.delete('/api/delete/logs', (req, res) => {
+	connection.query(`TRUNCATE tracker`, function(err, results) {
+		if (err) {
+			console.log(err);
+		} else {
+			res.status(200).send("logs deleted");
+		}
+	});
+	
+});
 
-
-
-
+// Delete the cycles
+app.delete('/api/delete/cycles', (req, res) => {
+connection.query(`TRUNCATE cycles`, function(err, results) {
+	if (err) {
+		console.log(err);
+	} else {
+		res.status(200).send("cycles deleted");
+	}
+});
+});
 // - start the server
 app.listen(port, (err) => {
 	if (err) {

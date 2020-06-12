@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
+import moment from 'moment';
 
 import Menu from "./components/menu";
 import Home from "./components/home-section";
@@ -13,23 +14,16 @@ class App extends Component {
     startDate: undefined,
     cycleLength: 28,
     periodLength: 7,
-    calendarType: "ISO 8601",
-    cal: true,
-    neighboringMonth: true
+    defaultView: "month",
+    currentDate: new Date(),
   };
   
   showMonth = () => {
-    let status = (this.state.neighboringMonth ? false : true);
-    this.setState({neighboringMonth: status});
-    return this.state.neighboringMonth;
+    this.setState({defaultView: "month"});
   }
-  calType = () => {
-    let status = (this.state.calendarType === "ISO 8601" ? "US" : "ISO 8601");
-    this.setState({calendarType: status, cal: !this.state.cal});
-    console.log(this.state.cal)
-    console.log(this.state.calendarType)
-    return status;
-    
+
+  showWeek = () => {;
+    this.setState({defaultView: "week"});
   };
 
   startBleed = date => {
@@ -45,7 +39,26 @@ class App extends Component {
     this.setState({ periodLength: length });
   };
 
+  onViewChange = newView => { 
+    this.setState({defaultView: newView})
+  };
+
+  
+  setCurrentDate = async (date) => {
+  	await this.setState({currentDate: date});
+  }
+ 
+  computeDisplayedDateRange = () => {
+  	const {currentDate, defaultView} = this.state;
+  	let start = moment(currentDate).startOf(defaultView);
+  	let end = moment(currentDate).endOf(defaultView);
+	if(defaultView == 'month') {
+		start = start.startOf('week');
+		end = end.endOf('week');
+	}
+  }
   render() {
+    
     return (
       <React.Fragment>
         <header className="header">
@@ -67,6 +80,10 @@ class App extends Component {
             path="/log"
             component={() => (
               <Log
+                currentDate={this.state.currentDate}
+                onNavigate={this.setCurrentDate}
+                onViewChange={this.onViewChange}
+                defaultView={this.state.defaultView}
                 startDate={this.state.startDate}
                 periodLength={this.state.periodLength}
                 cycleLength={this.state.cycleLength}
@@ -77,12 +94,12 @@ class App extends Component {
             path="/settings"
             component={() => (
               <Settings
-                cal={this.state.cal}
-                calType={this.calType}
-                neighboringMonth={this.state.neighboringMonth}
+                defaultView={this.state.defaultView}
+                showWeek={this.showWeek}
                 showMonth={this.showMonth}
                 adjustPeriod={this.adjustPeriod}
                 adjustCycle={this.adjustCycle}
+                
                 cycleLength={this.state.cycleLength}
                 periodLength={this.state.periodLength}
               />

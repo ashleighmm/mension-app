@@ -1,36 +1,47 @@
 import React, { Component } from "react";
+import Axios from "axios";
+
+const api5 = "http://localhost:3000/api/delete/logs";
+const api6 = "http://localhost:3000/api/delete/cycles";
+
+
 class Settings extends Component {
   state = {
     cal: true,
     ext: true
   };
+  
+deleteLogs = () => {
+    Axios.delete(api5).then(result => {
+      console.log(result.data);
+    });
+}
 
-
-  checkHandler2 = () => {
-    this.setState({ext: !this.state.ext})
-  };
-
+deleteCycles = () => {
+  Axios.delete(api6).then(result => {
+    console.log(result.data);
+  });
+}
   render() {
     return (
       <div className="Settings">
-        <button className="fullScreen greyCloud">Load test data</button>
-        <button className="fullScreen greyCloud">Delete all data</button>
-        <button className="fullScreen greyCloud">Connect Google account</button>
+        <button onClick={this.deleteCycles} className="fullScreen greyCloud">Delete all cycle data</button>
+        <button onClick={this.deleteLogs} className="fullScreen greyCloud">Delete all log data</button>
         <button className="fullScreen greyCloud">
-          <p>Mon - Sun calendar</p>
+          <p>Week to view</p>
           <input
             style={{minHeight: "30px", minWidth: "30px"}}
             type="checkbox"
-            checked={this.props.cal}
-            onChange={this.props.calType}
+            checked={this.props.defaultView === "week" ? true : false}
+            onChange={this.props.showWeek}
           ></input>
         </button>
         <button className="fullScreen greyCloud">
-          <p>Show extended month</p>
+          <p>Month to view</p>
           <input 
             style={{minHeight: "30px", minWidth: "30px"}} 
             type="checkbox"
-            checked={this.props.neighboringMonth}
+            checked={ this.props.defaultView === "month" ? true : false}
             onChange={this.props.showMonth}
             />
         </button>
