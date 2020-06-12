@@ -2,11 +2,13 @@
 .Navigation {
   background-color: dodgerblue;
   bottom: 0;
-  width: 100%;
+  width: 100vw;
+  height: 7.5vh;
 }
 .Navigation ul {
   display: flex;
   padding: 0;
+  margin: 0;
   list-style: none;
   justify-content: center;
 }
@@ -24,13 +26,14 @@
   display: flex;
   color: mediumspringgreen;
   background-color: dodgerblue;
+  height: 7.5vh;
 }
 
 /* HOME SCREEN CLICK THROUGH */
 .homeScreen {
   display: flex;
   align-items: center;
-  height: 83vh;
+  height: 85vh;
   justify-content: center;
   flex-direction: column;
   margin: auto;
@@ -42,7 +45,7 @@
 }
 
 .C2A {
-  width: 95vw;
+  width: 85vw;
   border-radius: 10px;
   border: 3px solid dodgerblue;
   background-color: mediumspringgreen;
@@ -119,7 +122,13 @@
 }
 
 /* LOG */
-
+.logBook {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
 .logDash {
   display: flex;
   flex-direction: column;
@@ -128,3 +137,10 @@
   align-items: center;
 }
 
+div.rbc-event-content[title="Menstruation"] {
+  color: mediumspringgreen;
+}
+
+.rbc-event-allday {
+ 
+}

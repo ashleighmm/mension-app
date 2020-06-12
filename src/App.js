@@ -60,7 +60,7 @@ class App extends Component {
   render() {
     
     return (
-      <React.Fragment>
+      <React.Fragment style={{width: "100vw"}}>
         <header className="header">
           <p style={{paddingLeft: "20px"}}>Moon Keeper</p>
         </header>

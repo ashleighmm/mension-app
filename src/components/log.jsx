@@ -41,8 +41,8 @@ class Log extends Component {
   };
 
   postData = () => {
-    let myString =  "flow: " + `${this.state.flow}` + " pain: " + `${this.state.pain}` + " location: " + `${this.state.location}` + " note: " + `${this.state.note}`;
-    console.log(myString);
+    let myString =  "flow: " + `${this.state.flow}` + ", pain: " + `${this.state.pain}` + ", location: " + `${this.state.location}` + ", note: " + `${this.state.note}`;
+    console.log(this.state.date);
     Axios.post(api2, {start: this.state.date, end: this.state.date, title: myString}).then(result => {
       console.log(result.data);
     });
@@ -57,7 +57,7 @@ class Log extends Component {
 
   clickHandler = () => {
     let status = this.state.adding ? false : true
-    this.setState({adding: status});
+    this.setState({adding: !this.state.adding});
   }
 
 // CYCLE TRACKING FUNCTIONS
@@ -81,10 +81,11 @@ class Log extends Component {
   render() {
     console.log(this.props.views)
     return (
-      <div style={{ height: "85vh" }}>
+      <div style={{ height: "84.5vh" }}>
       
        {this.state.adding === true ? 
-        (<form id="myForm" style={{margin: "auto", width: "30vw", display: "flex", flexDirection: "column"}}>
+        (<form id="myForm" style={{margin: "auto", width: "300px", display: "flex", flexDirection: "column"}}>
+          <h2>Daily Symptom Log:</h2>
           <label htmlFor="flow">How heavy is your flow</label>
             <select name="flow" onChange={this.changeHandler} id="flow">
               <option value="0">0</option>
@@ -116,10 +117,11 @@ class Log extends Component {
           <label>Date</label>
              <input name="date" value={this.state.date}
              onChange={this.changeHandler} type="date" />
-          <button onClick={this.postData} type="submit" style={{marginTop: "10px"}}>Submit</button>
+          <button style={{backgroundColor: "dodgerblue", marginTop: "10px", borderRadius: "40px", padding: "10px", color: "mediumspringgreen", border: "3px solid mediumspringgreen"}} onClick={this.postData} type="submit">Submit</button>
         </form>)
         : 
-        <div style={{height: "80vh"}}>
+        <div style={{height: "77vh"}}>
+         
         <Calendar
             events={this.state.logbook.concat(this.state.events)}
             defaultView={this.props.defaultView}
@@ -134,14 +136,15 @@ class Log extends Component {
             toolbar={true}
             selectable={true}
             showMultiDayTimes={true}
+            drilldownView="day"
             step={30}
             date={this.props.currentDate}
             defaultDate={new Date()}
             localizer={localizer}
           />
         </div>
-  } <div className="logBook" style={{width: "100vw", marginLeft: "42vw", marginRight: "42vw"}}>
-  <button style={{backgroundColor: "mediumspringgreen", borderRadius: "40px", padding: "10px", color: "dodgerblue", border: "3px solid dodgerblue"}} onClick={this.clickHandler}>Add an entry</button>
+  }  <div className="logBook">
+  <button style={{backgroundColor: "mediumspringgreen", borderRadius: "40px", width: "300px", padding: "10px", color: "dodgerblue", border: "3px solid dodgerblue"}} onClick={this.clickHandler}> {!this.state.adding ? "Add an entry" : "Cancel"}</button>
   </div>
       </div>
       
