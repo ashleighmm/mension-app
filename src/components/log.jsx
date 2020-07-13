@@ -92,10 +92,8 @@ class Log extends Component {
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
             </select>
-            <label htmlFor="pain">How bad is your pain?</label>
+            <label htmlFor="pain">How severe is your pain?</label>
             <select name="pain" onChange={this.changeHandler} id="pain">
             <option value="0">0</option>
               <option value="1">1</option>
@@ -106,11 +104,12 @@ class Log extends Component {
             </select>
             <label htmlFor="location">Where is your pain?</label>
             <select name="location" onChange={this.changeHandler} id="location">
-              <option vale="N/A">N/A</option>
-              <option value="Pelvis">Pelvis</option>
-              <option value="Legs">Legs</option>
-              <option value="Back">Back</option>
-              <option value="Other">Other</option>
+              <option vale="N/A">None</option>
+              <option value="Pelvis">Left</option>
+              <option value="Legs">Middle</option>
+              <option value="Back">Right</option>
+              <option value="Other">Undetermined</option>
+              <option value="Other">Bilateral</option>
             </select>
           <label>Any additional symptom notes?</label>
             <input name="note" value={this.state.note} onChange={this.changeHandler} type="text"style={{height: "20vh"}}></input>

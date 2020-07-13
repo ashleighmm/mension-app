@@ -62,7 +62,7 @@ class App extends Component {
     return (
       <React.Fragment style={{width: "100vw"}}>
         <header className="header">
-          <p style={{paddingLeft: "20px"}}>Moon Keeper</p>
+          <p style={{paddingLeft: "20px"}}>Mension</p>
         </header>
         <Switch>
           <Route
